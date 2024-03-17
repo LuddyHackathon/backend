@@ -43,7 +43,7 @@ app.post('/grammar', (req, res) => {
     const options = {
         hostname: 'grammar',
         port: 65535,
-        path: `/?file=${req.query.file}`,
+        path: '/?file=' + encodeURIComponent(req.query.file),
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
