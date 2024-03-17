@@ -103,7 +103,7 @@ app.post('/recommender', (req, res) => {
     const options = {
         hostname: 'recommender',
         port: 65535,
-        path: `/?file=${req.query.file}`,
+        path: '/?text=' + encodeURIComponent(req.query.text),
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
