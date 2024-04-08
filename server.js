@@ -82,22 +82,22 @@ app.get('/data', (req, res) => {
 })
 
 app.post('/data', function(req, res) {
-    let sampleFile;
+    let resumeFile;
     let uploadPath;
-  
+
     if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send('No files were uploaded.');
     }
-  
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    sampleFile = req.files.sampleFile;
-    uploadPath = __dirname + '/' + sampleFile.name;
-  
+
+    // The name of the input field (i.e. "resumeFile") is used to retrieve the uploaded file
+    resumeFile = req.files.resumeFile;
+    uploadPath = __dirname + '/resume/' + resumeFile.name;
+
     // Use the mv() method to place the file somewhere on your server
-    sampleFile.mv(uploadPath, function(err) {
+    resumeFile.mv(uploadPath, function(err) {
       if (err)
         return res.status(500).send(err);
-  
+
       res.send('File uploaded!');
     });
   });
