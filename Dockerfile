@@ -4,13 +4,15 @@ RUN mkdir -p /home/node/backend/node_modules && chown -R node:node /home/node/ba
 
 WORKDIR /home/node/backend
 
-COPY package*.json ./
+COPY --chown=node:node package*.json ./
 
 USER node
 
 RUN npm install
 
 COPY --chown=node:node . .
+
+RUN mkdir resume
 
 EXPOSE 65535
 
