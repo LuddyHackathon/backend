@@ -10,10 +10,7 @@ services:
       - careerspeak
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - resume:/home/node/backend/resume
 
-volumes:
-  resume: {}
 networks:
   careerspeak:
     external: true
