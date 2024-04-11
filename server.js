@@ -57,9 +57,12 @@ app.post('/grammar', (req, res) => {
       'Content-Type': 'application/json',
     }
   }
+
+  res.appendHeader('Access-Control-Allow-Origin', '*');
+
   const httpRequest = http.request(options, (response) => {
     let responseData = '';
-
+  
     response.on('data', (chunk) => {
       responseData += chunk;
     });
@@ -85,7 +88,7 @@ app.post('/data', (req, res) => {
   let resumeFile;
   let uploadPath;
 
-  res.appendHeader('Access-Control-Allow-Origin', '*')
+  res.appendHeader('Access-Control-Allow-Origin', '*');
 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('No files were uploaded.');
@@ -144,6 +147,9 @@ app.post('/recommender', (req, res) => {
       'Content-Type': 'application/json',
     }
   }
+  
+  res.appendHeader('Access-Control-Allow-Origin', '*');
+
   const httpRequest = http.request(options, (response) => {
     let responseData = '';
 
