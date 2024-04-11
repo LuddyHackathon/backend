@@ -93,7 +93,7 @@ app.post('/data', (req, res) => {
 
   // The name of the input field (i.e. "resumeFile") is used to retrieve the uploaded file
   resumeFile = req.files.resumeFile;
-  uploadPath = __dirname + '/resume/' + resumeFile.name;
+  uploadPath = '/resume/' + resumeFile.name;
 
   // Use the mv() method to place the file somewhere on your server
   resumeFile.mv(uploadPath, function (err) {

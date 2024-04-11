@@ -12,8 +12,6 @@ RUN npm install
 
 COPY --chown=node:node . .
 
-RUN mkdir resume
-
 EXPOSE 65535
 
 CMD [ "node", "server.js" ]
