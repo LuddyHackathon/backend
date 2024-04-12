@@ -17,6 +17,11 @@ app.get('/', (req, res) => {
   res.send(Buffer.from('<h2>Working!</h2>'));
 })
 
+app.get('/download', function (req, res) {
+  const file = `${__dirname}/CareerSpeak.apk`;
+  res.download(file); // Set disposition and send it.
+});
+
 app.get('/grammar', (req, res) => {
   const options = {
     hostname: 'grammar',
@@ -62,7 +67,7 @@ app.post('/grammar', (req, res) => {
 
   const httpRequest = http.request(options, (response) => {
     let responseData = '';
-  
+
     response.on('data', (chunk) => {
       responseData += chunk;
     });
@@ -147,7 +152,7 @@ app.post('/recommender', (req, res) => {
       'Content-Type': 'application/json',
     }
   }
-  
+
   res.appendHeader('Access-Control-Allow-Origin', '*');
 
   const httpRequest = http.request(options, (response) => {
