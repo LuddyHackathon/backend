@@ -1,6 +1,7 @@
 const express = require('express');
 const http = require('http');
 const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser')
 
 const app = express();
 const port = 65535;
@@ -10,6 +11,8 @@ var engines = require('consolidate');
 app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(fileUpload());
 
 app.get('/', (req, res) => {
@@ -146,7 +149,7 @@ app.post('/recommender', (req, res) => {
   const options = {
     hostname: 'recommender',
     port: 65535,
-    path: '/?text=' + encodeURIComponent(req.query.text),
+    path: '/?text=' + encodeURIComponent(req.body.text),
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
