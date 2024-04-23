@@ -1,5 +1,7 @@
 import express from 'express';
 
+import { signup, login, isAuth } from '../controllers/auth.js';
+
 import getRoot from './root.js';
 import getDownload from './download.js';
 import { getGrammar, postGrammar } from './grammar.js';
@@ -9,6 +11,12 @@ import { getHrInterviewer, postHrInterviewer } from './hrinterviewer.js';
 import { getTechInterviewer, postTechInterviewer } from './techinterviewer.js';
 
 const router = express.Router();
+
+router.post('/login', login);
+
+router.post('/signup', signup);
+
+router.get('/private', isAuth);
 
 router.get('/', getRoot);
 

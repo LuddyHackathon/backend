@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 const { urlencoded, json } = bodyParser;
 import { mustache } from 'consolidate';
 
+import sequelize from './utils/database.js';
 import router from './routes/routes.js';
 
 const app = express();
@@ -24,6 +25,8 @@ app.use((_, res, next) => {
 });
 
 app.use(router);
+
+sequelize.sync();
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
