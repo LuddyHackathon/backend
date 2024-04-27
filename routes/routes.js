@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { signup, login } from '../controllers/auth.js';
+import { signup, login, authorize } from '../controllers/auth.js';
 
 import getRoot from './root.js';
 import getDownload from './download.js';
@@ -21,18 +21,18 @@ router.get('/', getRoot);
 router.get('/download', getDownload);
 
 router.get('/grammar', getGrammar);
-router.post('/grammar', postGrammar);
+router.post('/grammar', authorize, postGrammar);
 
 router.get('/data', getData);
-router.post('/data',postData);
+router.post('/data', postData);
 
 router.get('/recommender', getRecommender);
-router.post('/recommender', postRecommender);
+router.post('/recommender', authorize, postRecommender);
 
 router.get('/hrinterviewer', getHrInterviewer);
-router.post('/hrinterviewer', postHrInterviewer);
+router.post('/hrinterviewer', authorize, postHrInterviewer);
 
 router.get('/techinterviewer', getTechInterviewer);
-router.post('/techinterviewer', postTechInterviewer);
+router.post('/techinterviewer', authorize, postTechInterviewer);
 
 export default router;

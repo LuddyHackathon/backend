@@ -75,4 +75,24 @@ const login = (req, res, next) => {
         });
 };
 
-export { signup, login };
+const authorize = (req, res, next) => {
+    const authHeader = req.get('Authorization');
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    };
+    const token = authHeader.split(' ')[1];
+    let decodedToken;
+    try {
+        let privateKey = fs.readFileSync('/home/node/backend/privatekey.pem');
+        decodedToken = jwt.verify(token, privateKey);
+    } catch (err) {
+        return res.status(500).json({ message: err.message || 'Unknown error while decoding token' });
+    };
+    if (!decodedToken) {
+        res.status(401).json({ message: 'Unauthorized' });
+    } else {
+        next();
+    };
+};
+
+export { signup, login, authorize };
