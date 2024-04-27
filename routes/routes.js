@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { signup, login, isAuth } from '../controllers/auth.js';
+import { signup, login } from '../controllers/auth.js';
 
 import getRoot from './root.js';
 import getDownload from './download.js';
@@ -15,8 +15,6 @@ const router = express.Router();
 router.post('/login', login);
 
 router.post('/signup', signup);
-
-router.get('/private', isAuth);
 
 router.get('/', getRoot);
 
