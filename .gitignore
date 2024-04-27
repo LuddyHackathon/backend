@@ -1,3 +1,7 @@
+# Private key
+*.pem
+*.cert
+
 # Download for endpoint
 *.apk
 
