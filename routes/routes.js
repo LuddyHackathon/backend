@@ -9,6 +9,7 @@ import { getData, postData } from './data.js';
 import { getRecommender, postRecommender } from './recommender.js';
 import { getHrInterviewer, postHrInterviewer } from './hrinterviewer.js';
 import { getTechInterviewer, postTechInterviewer } from './techinterviewer.js';
+import { getTranscriber, postTranscriber } from './transcriber.js';
 
 const router = express.Router();
 
@@ -34,5 +35,8 @@ router.post('/hrinterviewer', authorize, postHrInterviewer);
 
 router.get('/techinterviewer', getTechInterviewer);
 router.post('/techinterviewer', authorize, postTechInterviewer);
+
+router.get('/transcriber', getTranscriber);
+router.post('/transcriber', postTranscriber);
 
 export default router;
