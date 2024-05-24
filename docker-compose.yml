@@ -11,6 +11,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../resume:/resume:rw
+      - ../voice:/voice:rw
 
 networks:
   careerspeak:
