@@ -14,15 +14,16 @@ export function postTranscriber(req, res) {
 
     voiceFile = req.files.voiceFile;
     uploadPath = '/voice/' + voiceFile.name;
+    let options;
 
     voiceFile.mv(uploadPath, function (err) {
         if (err) {
             return res.status(500).send(err);
         };
-        const options = {
+        options = {
             hostname: 'transcriber',
             port: 65535,
-            path: '/?file=' + encodeURIComponent(req.query.file),
+            path: '/?voice_file=' + voiceFile.name,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
