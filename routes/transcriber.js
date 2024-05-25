@@ -14,13 +14,15 @@ export function postTranscriber(req, res) {
 
     voiceFile = req.files.voiceFile;
     uploadPath = '/voice/' + voiceFile.name;
-    let options;
+
+    let transcribedText;
+    let paraphrasedText;
 
     voiceFile.mv(uploadPath, function (err) {
         if (err) {
             return res.status(500).send(err);
         };
-        options = {
+        const transcriberOptions = {
             hostname: 'transcriber',
             port: 65535,
             path: '/?voice_file=' + voiceFile.name,
@@ -29,8 +31,7 @@ export function postTranscriber(req, res) {
                 'Content-Type': 'application/json',
             }
         };
-
-        const httpRequest = http.request(options, (response) => {
+        const transcriberHttpRequest = http.request(transcriberOptions, (response) => {
             let responseData = '';
 
             response.on('data', (chunk) => {
@@ -38,15 +39,42 @@ export function postTranscriber(req, res) {
             });
 
             response.on('end', () => {
-                res.send(responseData);
+                transcribedText = responseData;
+                console.log('transcriber output:', transcribedText);
             });
         });
-
-        httpRequest.on('error', (error) => {
+        transcriberHttpRequest.on('error', (error) => {
             console.error('Error:', error);
             res.status(500).json({ success: false, error: error.message });
         });
+        transcriberHttpRequest.end();
+        const paraphraserOptions = {
+            hostname: 'paraphraser',
+            port: 65535,
+            path: '/?text=' + transcribedText,
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+        const paraphraserHttpRequest = http.request(paraphraserOptions, (response) => {
+            let responseData = '';
 
-        httpRequest.end();
+            response.on('data', (chunk) => {
+                responseData += chunk;
+            });
+
+            response.on('end', () => {
+                paraphrasedText = responseData;
+                console.log('paraphraser output', paraphrasedText);
+            });
+        });
+        paraphraserHttpRequest.on('error', (error) => {
+            console.error('Error:', error);
+            res.status(500).json({ success: false, error: error.message });
+        });
+        paraphraserHttpRequest.end();
+
+        res.status(200).json({ "transcribed": transcribedText, "paraphrased": paraphrasedText });
     });
 };
