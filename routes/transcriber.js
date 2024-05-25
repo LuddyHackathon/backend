@@ -76,6 +76,6 @@ export function postTranscriber(req, res) {
             res.status(500).json({ success: false, error: error.message });
         });
         transcriberHttpRequest.end();
-        res.status(200).json({ 'transcribed': transcribedText, 'paraphrased': paraphrasedText });
+        res.status(200).json({ 'file': voiceFile.name, 'transcribed': transcribedText, 'paraphrased': paraphrasedText });
     });
 };
