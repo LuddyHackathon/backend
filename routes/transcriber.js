@@ -62,6 +62,7 @@ export function postTranscriber(req, res) {
                         paraphrasedText = responseData;
                         paraphrasedText = paraphrasedText.substring(paraphrasedText.indexOf(' '), paraphrasedText.length)
                         console.log('paraphraser output:', paraphrasedText);
+                        res.status(200).json({ 'file': voiceFile.name, 'transcribed': transcribedText, 'paraphrased': paraphrasedText });
                     });
                 });
                 paraphraserHttpRequest.on('error', (error) => {
@@ -76,6 +77,5 @@ export function postTranscriber(req, res) {
             res.status(500).json({ success: false, error: error.message });
         });
         transcriberHttpRequest.end();
-        res.status(200).json({ 'file': voiceFile.name, 'transcribed': transcribedText, 'paraphrased': paraphrasedText });
     });
 };
