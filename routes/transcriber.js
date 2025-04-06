@@ -42,34 +42,10 @@ export function postTranscriber(req, res) {
             response.on('end', () => {
                 transcribedText = responseData;
                 console.log('transcriber output:', transcribedText);
-                const paraphraserOptions = {
-                    hostname: 'paraphraser',
-                    port: 65535,
-                    path: '/?text=' + encodeURIComponent(transcribedText),
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                };
-                const paraphraserHttpRequest = http.request(paraphraserOptions, (response) => {
-                    let responseData = '';
-
-                    response.on('data', (chunk) => {
-                        responseData += chunk;
-                    });
-
-                    response.on('end', () => {
-                        paraphrasedText = responseData;
-                        paraphrasedText = paraphrasedText.substring(paraphrasedText.indexOf(' '), paraphrasedText.length)
-                        console.log('paraphraser output:', paraphrasedText);
-                        res.status(200).json({ 'file': voiceFile.name, 'transcribed': transcribedText, 'paraphrased': paraphrasedText });
-                    });
-                });
-                paraphraserHttpRequest.on('error', (error) => {
-                    console.error('Error:', error);
-                    res.status(500).json({ success: false, error: error.message });
-                });
-                paraphraserHttpRequest.end();
+                paraphrasedText = responseData;
+                paraphrasedText = paraphrasedText.substring(paraphrasedText.indexOf(' '), paraphrasedText.length)
+                console.log('paraphraser output:', paraphrasedText);
+                res.status(200).json({ 'file': voiceFile.name, 'transcribed': transcribedText, 'paraphrased': paraphrasedText });
             });
         });
         transcriberHttpRequest.on('error', (error) => {
