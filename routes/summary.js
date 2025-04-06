@@ -1,8 +1,8 @@
 import http from 'http';
 
-export function getGrammar(req, res) {
+export function getSummary(req, res) {
     const options = {
-        hostname: 'grammar',
+        hostname: 'summary',
         port: 65535,
         path: '/',
         method: 'GET',
@@ -30,11 +30,11 @@ export function getGrammar(req, res) {
     httpRequest.end();
 };
 
-export function postGrammar(req, res) {
+export function postSummary(req, res) {
     const options = {
-        hostname: 'grammar',
+        hostname: 'summary',
         port: 65535,
-        path: '/?file=' + encodeURIComponent(req.query.file),
+        path: '/?text=' + encodeURIComponent(req.query.text),
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

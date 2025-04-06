@@ -2,7 +2,7 @@ import express from 'express';
 
 import getRoot from './root.js';
 import getDownload from './download.js';
-import { getGrammar, postGrammar } from './grammar.js';
+import { getSummary, postSummary } from './summary.js';
 import { getData, postData } from './data.js';
 import { getSentiments, postSentiments } from './sentiments.js';
 import { getHrInterviewer, postHrInterviewer } from './hrinterviewer.js';
@@ -15,8 +15,8 @@ router.get('/', getRoot);
 
 router.get('/download', getDownload);
 
-router.get('/grammar', getGrammar);
-router.post('/grammar', postGrammar);
+router.get('/summary', getSummary);
+router.post('/summary', postSummary);
 
 router.get('/data', getData);
 router.post('/data', postData);
