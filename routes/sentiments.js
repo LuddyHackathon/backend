@@ -32,7 +32,7 @@ export function getSentiments(req, res) {
 
 export function postSentiments(req, res) {
     const options = {
-        hostname: 'sentimentss',
+        hostname: 'sentiments',
         port: 65535,
         path: '/?text=' + encodeURIComponent(req.body.text),
         method: 'POST',
