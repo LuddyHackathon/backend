@@ -1,8 +1,8 @@
 import http from 'http';
 
-export function getRecommender(req, res) {
+export function getSentiments(req, res) {
     const options = {
-        hostname: 'recommender',
+        hostname: 'sentiments',
         port: 65535,
         path: '/',
         method: 'GET',
@@ -30,9 +30,9 @@ export function getRecommender(req, res) {
     httpRequest.end();
 };
 
-export function postRecommender(req, res) {
+export function postSentiments(req, res) {
     const options = {
-        hostname: 'recommender',
+        hostname: 'sentimentss',
         port: 65535,
         path: '/?text=' + encodeURIComponent(req.body.text),
         method: 'POST',

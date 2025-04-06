@@ -4,7 +4,7 @@ import getRoot from './root.js';
 import getDownload from './download.js';
 import { getGrammar, postGrammar } from './grammar.js';
 import { getData, postData } from './data.js';
-import { getRecommender, postRecommender } from './recommender.js';
+import { getSentiments, postSentiments } from './sentiments.js';
 import { getHrInterviewer, postHrInterviewer } from './hrinterviewer.js';
 import { getTechInterviewer, postTechInterviewer } from './techinterviewer.js';
 import { getTranscriber, postTranscriber } from './transcriber.js';
@@ -21,8 +21,8 @@ router.post('/grammar', postGrammar);
 router.get('/data', getData);
 router.post('/data', postData);
 
-router.get('/recommender', getRecommender);
-router.post('/recommender', postRecommender);
+router.get('/sentiments', getSentiments);
+router.post('/sentiments', postSentiments);
 
 router.get('/hrinterviewer', getHrInterviewer);
 router.post('/hrinterviewer', postHrInterviewer);
