@@ -16,6 +16,8 @@ app.use(urlencoded({ extended: false }));
 app.use(json());
 app.use(fileUpload());
 
+app.use('/voice', express.static('voice'));
+
 app.use((_, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');

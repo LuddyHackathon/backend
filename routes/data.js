@@ -3,7 +3,7 @@ export function getData(req, res) {
 };
 
 export function postData(req, res) {
-    let resumeFile;
+    let voiceFile;
     let uploadPath;
 
     if (!req.files || Object.keys(req.files).length === 0) {
@@ -11,11 +11,11 @@ export function postData(req, res) {
     };
 
     // The name of the input field (i.e. "resumeFile") is used to retrieve the uploaded file
-    resumeFile = req.files.resumeFile;
-    uploadPath = '/resume/' + resumeFile.name;
+    voiceFile = req.files.voiceFile;
+    uploadPath = '/voice/' + voiceFile.name;
 
     // Use the mv() method to place the file somewhere on your server
-    resumeFile.mv(uploadPath, function (err) {
+    voiceFile.mv(uploadPath, function (err) {
         if (err) {
             return res.status(500).send(err);
         };
