@@ -1,3 +1,5 @@
+import { postTranscriber } from "./transcriber";
+
 export function getData(req, res) {
     res.render('index.html', { status: 'good' });
 };
@@ -19,6 +21,7 @@ export function postData(req, res) {
         if (err) {
             return res.status(500).send(err);
         };
-        res.send('File uploaded!');
+        req.query.voiceFile = voiceFile.name;
+        return postTranscriber(req, res);
     });
 };

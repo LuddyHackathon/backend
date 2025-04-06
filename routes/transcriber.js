@@ -5,18 +5,9 @@ export function getTranscriber(req, res) {
 };
 
 export function postTranscriber(req, res) {
-    let voiceFile;
-    let uploadPath;
-
-    if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
-    };
-
-    voiceFile = req.files.voiceFile;
-    uploadPath = '/voice/' + voiceFile.name;
+    let voiceFile = req.query.voiceFile;
 
     let transcribedText;
-    let paraphrasedText;
 
     voiceFile.mv(uploadPath, async function (err) {
         if (err) {
@@ -26,7 +17,7 @@ export function postTranscriber(req, res) {
         const transcriberOptions = {
             hostname: 'transcriber',
             port: 65535,
-            path: '/?voice_file=' + encodeURIComponent(voiceFile.name),
+            path: '/?voice_file=' + encodeURIComponent(voiceFile),
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,11 +38,11 @@ export function postTranscriber(req, res) {
                 console.log('paraphraser output:', paraphrasedText);
                 res.status(200).json({ 'file': voiceFile.name, 'transcribed': transcribedText, 'paraphrased': paraphrasedText });
             });
+            transcriberHttpRequest.on('error', (error) => {
+                console.error('Error:', error);
+                res.status(500).json({ success: false, error: error.message });
+            });
+            transcriberHttpRequest.end();
         });
-        transcriberHttpRequest.on('error', (error) => {
-            console.error('Error:', error);
-            res.status(500).json({ success: false, error: error.message });
-        });
-        transcriberHttpRequest.end();
     });
 };
